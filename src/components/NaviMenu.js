@@ -7,6 +7,7 @@ import $http from "../Utils";
 import {removeToken, setToken} from "../reducer/TokenReducer";
 import {useDispatch} from "react-redux";
 import {removeUsername, setUsername} from "../reducer/UsernameReducer";
+import Layout from "antd/es/layout/layout";
 
 const layout = {
     labelCol: {
@@ -95,142 +96,144 @@ const NaviMenu = () => {
 
 
     return (
-        <Row style={{background: "white"}} justify="space-around" align="middle">
-            <Col span={23}>
-                <Menu
-                    onClick={handleClick}
-                    selectedKeys={[current]}
-                    mode={"horizontal"}>
-                    <Menu.Item key="" icon={<WalletOutlined/>}>
-                        <Link to={'/'}/>
-                        我要买车
-                    </Menu.Item>
-                    <Menu.Item key="sell" icon={<TransactionOutlined/>}>
-                        <Link to={'/sell'}/>
-                        我要卖车
-                    </Menu.Item>
-                    <Menu.Item key="order" icon={<UnorderedListOutlined/>}>
-                        <Link to={'/order'}/>
-                        我的订单
-                    </Menu.Item>
-                </Menu>
-            </Col>
-            <Col span={1}>
-                <Button type={"text"} onClick={() => onClick()}>{loginButtonText}</Button>
-            </Col>
-            <Modal
-                visible={showLoginDialog}
-                title="登录"
-                onCancel={onCancelLogin}
-                onOk={
-                    () => {
-                        formLogin.validateFields()
-                            .then(() => {
-                                formLogin.submit()
-                                onLogin()
+        <Layout>
+            <Row style={{background: "white"}} justify="space-around" align="middle">
+                <Col span={23}>
+                    <Menu
+                        onClick={handleClick}
+                        selectedKeys={[current]}
+                        mode={"horizontal"}>
+                        <Menu.Item key="" icon={<WalletOutlined/>}>
+                            <Link to={'/'}/>
+                            我要买车
+                        </Menu.Item>
+                        <Menu.Item key="sell" icon={<TransactionOutlined/>}>
+                            <Link to={'/sell'}/>
+                            我要卖车
+                        </Menu.Item>
+                        <Menu.Item key="order" icon={<UnorderedListOutlined/>}>
+                            <Link to={'/order'}/>
+                            我的订单
+                        </Menu.Item>
+                    </Menu>
+                </Col>
+                <Col span={1}>
+                    <Button type={"text"} onClick={() => onClick()}>{loginButtonText}</Button>
+                </Col>
+                <Modal
+                    visible={showLoginDialog}
+                    title="登录"
+                    onCancel={onCancelLogin}
+                    onOk={
+                        () => {
+                            formLogin.validateFields()
+                                .then(() => {
+                                    formLogin.submit()
+                                    onLogin()
 
-                            })
+                                })
+                        }
                     }
-                }
-            >
-                <Form
-                    {...layout}
-                    form={formLogin}
-                    name="ManageSystemLoginForm"
-                    onFinish={onFinishLogin}
                 >
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your username!',
-                            },
-                        ]}
+                    <Form
+                        {...layout}
+                        form={formLogin}
+                        name="ManageSystemLoginForm"
+                        onFinish={onFinishLogin}
                     >
-                        <Input/>
-                    </Form.Item>
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>
-                </Form>
-                <Button onClick={() => {
-                    setShowLoginDialog(false)
-                    setShowRegisterDialog(true)
-                }}
-                >注册</Button>
-            </Modal>
-            <Modal
-                visible={showRegisterDialog}
-                title="注册"
-                onCancel={onCancelRegister}
-                onOk={
-                    () => {
-                        formRegister.validateFields()
-                            .then(() => {
-                                formRegister.submit()
-                                onRegister()
-                            })
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+                    </Form>
+                    <Button onClick={() => {
+                        setShowLoginDialog(false)
+                        setShowRegisterDialog(true)
+                    }}
+                    >注册</Button>
+                </Modal>
+                <Modal
+                    visible={showRegisterDialog}
+                    title="注册"
+                    onCancel={onCancelRegister}
+                    onOk={
+                        () => {
+                            formRegister.validateFields()
+                                .then(() => {
+                                    formRegister.submit()
+                                    onRegister()
+                                })
+                        }
                     }
-                }
-            >
-                <Form
-                    {...layout}
-                    form={formRegister}
-                    name="RegisterForm"
-                    onFinish={onFinishRegister}
                 >
-                    <Form.Item
-                        label="Username"
-                        name="username"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your username!',
-                            },
-                        ]}
+                    <Form
+                        {...layout}
+                        form={formRegister}
+                        name="RegisterForm"
+                        onFinish={onFinishRegister}
                     >
-                        <Input/>
-                    </Form.Item>
+                        <Form.Item
+                            label="Username"
+                            name="username"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
 
-                    <Form.Item
-                        label="Password"
-                        name="password"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your password!',
-                            },
-                        ]}
-                    >
-                        <Input.Password/>
-                    </Form.Item>
-                    <Form.Item
-                        label="PhoneNumber"
-                        name="phoneNumber"
-                        rules={[
-                            {
-                                required: true,
-                                message: 'Please input your phoneNumber!',
-                            },
-                        ]}
-                    >
-                        <Input/>
-                    </Form.Item>
-                </Form>
-            </Modal>
-        </Row>
+                        <Form.Item
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password!',
+                                },
+                            ]}
+                        >
+                            <Input.Password/>
+                        </Form.Item>
+                        <Form.Item
+                            label="PhoneNumber"
+                            name="phoneNumber"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your phoneNumber!',
+                                },
+                            ]}
+                        >
+                            <Input/>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </Row>
+        </Layout>
     )
 }
 
